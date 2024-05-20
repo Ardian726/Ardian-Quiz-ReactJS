@@ -1,34 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 
-class SoalLima extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {value: ''};
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+function SoalLima() {
+  const [type, setType] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleAddTodo = () => {
+    if (inputValue.trim() !== "") {
+      setType([...type, inputValue]);
+      setInputValue("");
     }
-  
-    handleChange(event) {
-      this.setState({value: event.target.value});
-    }
-  
-    handleSubmit(event) {
-      alert('I Said, Dont Type', this.state.value);
-      event.preventDefault();
-    }
-  
-    render() {
-      return (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Don't Type :
-            <br />
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <button type="submit">Please</button>
-        </form>
-      );
-    }
+  };
+
+  return (
+    <div className="SoalLima">
+      <h1 className="text-center my-5">You Can Type Anything</h1>
+      <div className="container">
+        <div className="col-4 mx-auto">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              value={inputValue}
+              onChange={handleInputChange}
+            />
+            <button
+              class="btn btn-primary"
+              type="button"
+              onClick={handleAddTodo}
+            >
+            Hai
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="col-4 mx-auto">
+          <div class="card">
+            {type.map((todo, index) => (
+              <div key={index}>
+                <p class="list-group-item">{todo}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default SoalLima;
